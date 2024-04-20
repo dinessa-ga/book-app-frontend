@@ -1,24 +1,30 @@
-// booksSlice.js
-
+// slice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   books: [],
+  status: 'idle',
+  error: null,
 };
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBook(state, action) {
-      state.books.push(action.payload);
+    fetchBooksStart(state) {
+      state.status = 'loading';
     },
-    removeBook(state, action) {
-      state.books = state.books.filter(book => book.id !== action.payload.id);
+    fetchBooksSuccess(state, action) {
+      state.status = 'succeeded';
+      state.books = action.payload; //los datos
+    },
+    fetchBooksFailure(state, action) {
+      state.status = 'failed';
+      state.error = action.payload;
     },
   },
 });
 
-export const { addBook, removeBook } = booksSlice.actions;
+export const { fetchBooksStart, fetchBooksSuccess, fetchBooksFailure } = booksSlice.actions;
 
 export default booksSlice.reducer;

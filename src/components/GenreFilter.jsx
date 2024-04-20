@@ -21,7 +21,7 @@ function GenreFilter() {
 
   return (
     <div>
-      <label htmlFor="genre">Filter by Genre:</label>
+      <label htmlFor="genre">Género</label>
       <select id="genre" onChange={handleGenreChange}>
         <option value="">All</option>
         {genres && genres.map(genre => (
