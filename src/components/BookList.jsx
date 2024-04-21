@@ -1,4 +1,4 @@
-// import '../index.css';
+import '../index.css';
 
 
 // import React from 'react';
@@ -43,6 +43,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../services/api';
+import BookCard from './BookCard';
 
 const BookList = () => {
   const [data, setData] = useState(null);
@@ -57,12 +58,9 @@ const BookList = () => {
   }, []);
 
   return (
-    <div>
-      {data ? data.map((item, index) => (
-        <div key={index}>
-          <h2>{item.book.title}</h2>
-          <p>{item.book.description}</p>
-        </div>
+    <div className="flex flex-wrap justify-around">
+     {data ? data.map((item, index) => (
+        <BookCard key={index} book={item.book} />
       )) : 'Cargando...'}
     </div>
   );
