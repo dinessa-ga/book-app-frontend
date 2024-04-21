@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useBooksQuery } from './api';
 import BookList from './BookList';
-import ReadingList from './ReadingList';
+import ReadingList from './components/ReadingList';
 import GenreFilter from './GenreFilter';
 
 function App() {
