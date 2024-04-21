@@ -1,12 +1,8 @@
-// booksSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getBooks } from './services/api';
+import { getBooks } from '../services/api';
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-  const response = await getBooks();
-  return response.data;
-  
-});
+// Aquí, estás devolviendo directamente la respuesta de la API.
+export const fetchBooks = createAsyncThunk('books/fetchBooks', getBooks);
 
 const booksSlice = createSlice({
   name: 'books',
