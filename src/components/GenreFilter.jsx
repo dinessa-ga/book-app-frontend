@@ -1,35 +1,20 @@
-// GenreFilter.jsx
+import { useSelector, useDispatch } from 'react-redux';
+import { setGenre } from '../store/genreSlice';
 
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-import { useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { setGenreFilter } from './filtersSlice'; // Importar la acción para establecer el filtro de género
-
-function GenreFilter() {
+const GenreFilter = () => {
   const dispatch = useDispatch();
+  const genre = useSelector((state) => state.genre);
 
-  // Lógica para obtener géneros desde la API utilizando React Query
-  const { data: genres } = useQuery('genres', async () => {
-    const response = await fetch('/api/genres'); // Endpoint de la API para obtener géneros
-    return response.json();
-  });
-
-  const handleGenreChange = (event) => {
-    dispatch(setGenreFilter(event.target.value)); // Actualizar el filtro de género en el store
+  const handleGenreChange = (e) => {
+    dispatch(setGenre(e.target.value));
   };
 
   return (
-    <div>
-      <label htmlFor="genre">Género</label>
-      <select id="genre" onChange={handleGenreChange}>
-        <option value="">All</option>
-        {genres && genres.map(genre => (
-          <option key={genre} value={genre}>{genre}</option>
-        ))}
-      </select>
-    </div>
+    <select value={genre} onChange={handleGenreChange}>
+      <option value="Todos">Todos</option>
+      {/* Aquí puedes agregar más opciones de género */}
+    </select>
   );
-}
+};
 
 export default GenreFilter;

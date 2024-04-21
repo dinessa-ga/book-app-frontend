@@ -1,51 +1,43 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { useBooksQuery } from './api';
-import BookList from './BookList';
+
+import BookList from './components/BookList';
 import ReadingList from './components/ReadingList';
-import GenreFilter from './GenreFilter';
+import GenreFilter from './components/GenreFilter';
 
-function App() {
-  const [readingList, setReadingList] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState(null);
+import React, { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useSelector, useDispatch } from 'react-redux';
 
-  const { data: books, isError, error } = useQuery('books', useBooksQuery);
+import {store} from './store/store'
 
-  useEffect(() => {
-    // Carga la lista de lectura del almacenamiento local
-    const storedReadingList = localStorage.getItem('readingList');
-    if (storedReadingList) {
-      setReadingList(JSON.parse(storedReadingList));
-    }
-  }, []);
+
+const App = () => {
+  const dispatch = useDispatch();
+  const genre = useSelector(store);
+  const books = useSelector((state) => state.books);
 
   useEffect(() => {
-    // Guarda la lista de lectura en el almacenamiento local cada vez que cambia
-    localStorage.setItem('readingList', JSON.stringify(readingList));
-  }, [readingList]);
+    dispatch(fetchBooks());
+  }, [dispatch]);
 
-  const addToReadingList = (book) => {
-    setReadingList((prevReadingList) => [...prevReadingList, book]);
-  };
+  const { isLoading, error } = useQuery('books', fetchBooks, {
+    onSuccess: (data) => {
+      fetchBooks(data);
+    },
+  });
 
-  if (isError) {
-    return <div>Error al cargar los libros: {error.message}</div>;
-  }
+  if (isLoading) return 'Cargando...';
+  if (error) return `Hubo un error al obtener los libros: ${error.message}`;
 
-  if (!books) {
-    return <div>Cargando libros...</div>;
-  }
-
-  const filteredBooks = books.filter((book) => !selectedGenre || book.genre === selectedGenre);
+  const filteredBooks = genre === 'Todos' ? books : books.filter(book => book.genre === genre);
 
   return (
-    <div>
-      <GenreFilter genres={['Fantasía', 'Ciencia Ficción']} onGenreSelect={setSelectedGenre} />
-      <BookList books={filteredBooks} onAddToReadingList={addToReadingList} />
-      <ReadingList readingList={readingList} />
+    <div className="App">
+      <GenreFilter />
+      <BookList />
+     <BookList books={filteredBooks} />
+      <ReadingList/>
     </div>
   );
-}
+};
 
 export default App;

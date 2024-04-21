@@ -1,67 +1,28 @@
 import '../index.css';
 
 
-// import React from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useBooks } from '../services/api.js';
-// import { fetchBooksStart, fetchBooksSuccess, fetchBooksFailure } from '../store/booksSlice.js';
 
-// function BookList(){
-//     return(
-//         <>
-//         <h1>Hola</h1>
-//         </>
-//     )
-// }
-
-// export default BookList
-
-// BookList.jsx
-
-
-// eslint-disable-next-line no-unused-vars
-// import React from 'react';
-// import useBooksQuery from './api.js';
-// import BookCard from './BookCard';
-
-// eslint-disable-next-line react/prop-types
-// function BookList({ onAddToReadingList }) {
-//   const books = useBooksQuery();
-
-//   return (
-//     <div>
-//       {books.map((book) => (
-//         <BookCard key={book.id} book={book} onAddToReadingList={onAddToReadingList} />
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default BookList;
-
-// BookList.js
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
-import { fetchData } from '../services/api';
-import BookCard from './BookCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { addBookToReadingList } from '../store/readingListSlice';
 
 const BookList = () => {
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
 
-  useEffect(() => {
-    const getData = async () => {
-      const dataFromApi = await fetchData();
-      setData(dataFromApi.default.library);
-    };
-
-    getData();
-  }, []);
+  const handleAddBook = (book) => {
+    dispatch(addBookToReadingList(book));
+  };
 
   return (
-    <div className="flex flex-wrap justify-around">
-     {data ? data.map((item, index) => (
-        <BookCard key={index} book={item.book} />
-      )) : 'Cargando...'}
+    <div>
+      {books.map((book) => (
+        <div key={book.ISBN}>
+          <h2>{book.title}</h2>
+          <img src={book.cover} alt={book.title} />
+          <p>{book.synopsis}</p>
+          <button onClick={() => handleAddBook(book)}>Agregar a la lista de lectura</button>
+        </div>
+      ))}
     </div>
   );
 };

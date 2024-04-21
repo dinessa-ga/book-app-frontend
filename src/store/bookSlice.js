@@ -1,10 +1,11 @@
 // booksSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getBooks } from './api';
+import { getBooks } from './services/api';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   const response = await getBooks();
   return response.data;
+  
 });
 
 const booksSlice = createSlice({

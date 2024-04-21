@@ -1,26 +1,27 @@
-// ReadingList.jsx
 
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-import BookCard from './BookCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeBookFromReadingList } from './readingListSlice';
 
+const ReadingList = () => {
+  const dispatch = useDispatch();
+  const readingList = useSelector((state) => state.readingList);
 
-function ReadingList() {
-  const readingList = useSelector(state => state.readingList); // Obtener la lista de lectura del store
+  const handleRemoveBook = (book) => {
+    dispatch(removeBookFromReadingList(book));
+  };
 
   return (
     <div>
-      <h2>Reading List</h2>
-      <div className="reading-list">
-        {readingList.map(book => (
-          <div key={book.id} className="book-card">
-            <BookCard book={book} />
-          </div>
-        ))}
-      </div>
+      {readingList.map((book) => (
+        <div key={book.ISBN}>
+          <h2>{book.title}</h2>
+          <img src={book.cover} alt={book.title} />
+          <p>{book.synopsis}</p>
+          <button onClick={() => handleRemoveBook(book)}>Eliminar de la lista de lectura</button>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default ReadingList;

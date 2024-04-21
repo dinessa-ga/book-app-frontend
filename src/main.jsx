@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 
 import './index.css'
 
-import BooksList from './components/BookList.jsx'
+import  App from './App.jsx'
 import store from './store/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
     <Provider store={store}></Provider>
-   <BooksList></BooksList>
+   
   </React.StrictMode>,
 )
