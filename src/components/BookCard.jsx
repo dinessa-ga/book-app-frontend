@@ -1,6 +1,6 @@
-// import '../index.css';
+import '../index.css';
 
-// import React from 'react';
+
 
 // const BookCard = ({ book, onAddToReadingList }) => {
 //   return (
@@ -14,3 +14,29 @@
 // };
 
 // export default BookCard;
+
+// components/BookCard.js
+
+import { useDispatch } from 'react-redux';
+import { addBookToReadingList } from '../store/readingListSlice';
+
+const BookCard = ({ book }) => {
+  const dispatch = useDispatch();
+
+  const handleAddBook = () => {
+    dispatch(addBookToReadingList(book));
+  };
+
+
+
+  return (
+    <div className="book-card">
+      <img src={book.cover} alt={book.title} />
+      <h2>{book.title}</h2>
+      <p>{book.synopsis}</p>
+      <button onClick={handleAddBook}>Agregar a tu lista</button>
+    </div>
+  );
+};
+
+export default BookCard;

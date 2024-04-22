@@ -1,14 +1,8 @@
+import { useSelector } from 'react-redux';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { removeBookFromReadingList } from '../store/readingListSlice';
 
 const ReadingList = () => {
-  const dispatch = useDispatch();
   const readingList = useSelector((state) => state.readingList);
-
-  const handleRemoveBook = (book) => {
-    dispatch(removeBookFromReadingList(book));
-  };
 
   return (
     <div>
@@ -17,7 +11,6 @@ const ReadingList = () => {
           <h2>{book.title}</h2>
           <img src={book.cover} alt={book.title} />
           <p>{book.synopsis}</p>
-          <button onClick={() => handleRemoveBook(book)}>Eliminar de la lista de lectura</button>
         </div>
       ))}
     </div>

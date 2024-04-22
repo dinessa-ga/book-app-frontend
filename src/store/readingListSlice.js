@@ -13,13 +13,11 @@ const readingListSlice = createSlice({
         state.push(action.payload);
       }
     },
-    removeBookFromReadingList: (state, action) => {
-      // Filtra el libro que quieres eliminar de la lista de lectura
-      return state.filter(book => book.id !== action.payload.id);
-    },
+    
   },
 });
 
-export const { addBookToReadingList, removeBookFromReadingList } = readingListSlice.actions;
+
+export const { addBookToReadingList } = readingListSlice.actions;
 
 export default readingListSlice.reducer;

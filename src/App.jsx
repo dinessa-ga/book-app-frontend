@@ -26,7 +26,7 @@ const App = () => {
     <div className="App">
       <GenreFilter />
       <BookList books={filteredBooks} />
-      <ReadingList/>
+      <ReadingList />
     </div>
   );
 };
