@@ -2,7 +2,24 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Proyecto
+
+El proyecto tiene una estructura donde desde la carpeta de Services - api.js se hace el llamado a la api. 
+
+El uso de ramas tenía como objetivo poder visalizar el código a lo largo del tiempo, desde el probar si traía los datos, hasta la siguiente versión del cambio para usar redux-toolkit.
+
+En la rama desarollo2, está la aplicación de redux-toolkit.
+
+En la rama principal está el llamado a la api externa con fetch.
+
+Se realizó la instalación de depencias para:
+- npm install
+- redux-toolkit
+- react query
+- tailwind
+
+
+
+
